@@ -1,0 +1,44 @@
+<!--Our search form page, displays results on the search page instead of the index or a new page.  Returns four params selected by the user-->
+
+<h1>SEARCH</h1>
+<%= form_tag("search", method: "get") do %>
+<th><%= label_tag("Type") %></th>
+<br><%= select_tag(:type, options_for_select([['Any', 'Any'], ['Book', 'Book'], ['Phone', 'Phone'], ['Toy', 'Toy'], ['Electronic', 'Electronic']])) %></br>
+<th><%= label_tag("Title") %></th>
+<br><%= text_field_tag :title, params[:search] %></br>
+<th><%= label_tag("Description") %></th>
+<br><%= text_area_tag(:description, params[:search], size: "24x6") %></br>
+<th><%= label_tag("Match all?") %></th>
+<br><%= check_box_tag(:match_all) %></br>
+<br><%= submit_tag "Search", :name => nil %></br>
+
+<br><%= link_to 'Back to Items Listing', items_path %></br>
+<% end %>
+
+<h2>OUR RESULTS</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Item type</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.title %></td>
+        <td><%= item.description %></td>
+        <td><%= item.item_type %></td>
+        <td><%= link_to 'Show', item %></td>
+        <td><%= link_to 'Edit', edit_item_path(item) %></td>
+        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

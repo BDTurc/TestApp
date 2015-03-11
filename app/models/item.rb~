@@ -1,0 +1,19 @@
+class Item < ActiveRecord::Base
+
+  def self.search(params)
+    if params
+      if params[:match_all] == "1"
+        params[:type] = "" if  params[:type] == "Any"
+         find(:all, :conditions => ['item_type LIKE ? AND title LIKE ? AND description LIKE ?', "%#{params[:type]}%", "%#{params[:title]}%", "%#{params[:description]}%"])
+      else
+        params.each do |k, v|
+          params[k] = "++" if params[k] == ""
+          params[k] = "" if k == "type" && params[k] == "Any"
+        end
+       find(:all, :conditions => ['item_type LIKE ? OR title LIKE ? OR description LIKE?', "%#{params[:type]}%", "%#{params[:title]}%", "%#{params[:description]}%"])
+      end
+    else
+      find(:all)
+    end
+  end
+end
