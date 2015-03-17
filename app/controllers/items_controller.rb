@@ -1,9 +1,11 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  require 'items_helper.rb'
 
   # GET /items
   # GET /items.json
   def index
+    @types = Type.all
     @items = Item.all
   end
 
@@ -14,22 +16,26 @@ class ItemsController < ApplicationController
 
   def search
     #set @items to just be whatever is returned by the search using the params from the search form.  
+    @types = Type.all
     @items = Item.search params
   end
   
 
   # GET /items/new
   def new
+    @types = Type.all
     @item = Item.new
   end
 
   # GET /items/1/edit
   def edit
+    @types = Type.all
   end
 
   # POST /items
   # POST /items.json
   def create
+    @types = Type.all
     @item = Item.new(item_params)
 
     respond_to do |format|
@@ -75,6 +81,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:title, :description, :item_type)
+      params.require(:item).permit(:title, :type_id, :owner,  :description, :item_type)
     end
 end
