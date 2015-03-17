@@ -17,7 +17,7 @@
       <tr>
         <td><%= item.title %></td>
         <td><%= item.description %></td>
-        <td><%= Type.find(item.type_id).title %></td>
+        <td><%= item.type.title %></td>
         <td><%= item.owner %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

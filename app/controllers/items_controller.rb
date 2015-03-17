@@ -5,7 +5,6 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @types = Type.all
     @items = Item.all
   end
 
@@ -15,7 +14,7 @@ class ItemsController < ApplicationController
   end
 
   def search
-    #set @items to just be whatever is returned by the search using the params from the search form.  
+    #set @items to just be whatever is returned by the search using the params from the search form. 
     @types = Type.all
     @items = Item.search params
   end
@@ -52,6 +51,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
+    @types = Type.all
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }

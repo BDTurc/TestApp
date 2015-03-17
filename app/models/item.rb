@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  belongs_to :types
+  belongs_to :type
   #take in a hash of params, will return only items for @items that match criteria from the AR query.
   def self.search(params)
     if params #our params hash with data from our search form
